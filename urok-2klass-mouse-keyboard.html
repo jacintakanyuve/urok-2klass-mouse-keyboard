@@ -1,0 +1,1427 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Информатика 2 класс: Клавиатура и мышь. Практическая работа 2</title>
+  <style>
+    :root {
+      --bg: #f0f9ff;
+      --surface: #ffffff;
+      --surface-soft: #f8fafc;
+      --primary: #0284c7;
+      --primary-dark: #0369a1;
+      --primary-light: #e0f2fe;
+      --accent: #f59e0b;
+      --accent-light: #fef3c7;
+      --success: #059669;
+      --success-light: #d1fae5;
+      --danger: #dc2626;
+      --danger-light: #fee2e2;
+      --text: #0f172a;
+      --text-muted: #475569;
+      --border: #bae6fd;
+      --radius: 20px;
+      --shadow: 0 6px 24px rgba(2, 132, 199, 0.08);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      font-size: 17px;
+      padding-bottom: 60px;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: rgba(255, 255, 255, 0.96);
+      backdrop-filter: blur(8px);
+      border-bottom: 2px solid var(--border);
+      padding: 12px 16px;
+    }
+
+    .topbar-inner {
+      max-width: 860px;
+      margin: 0 auto;
+    }
+
+    .topbar-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-bottom: 8px;
+    }
+
+    .badge {
+      display: inline-flex;
+      align-items: center;
+      background: var(--primary-light);
+      color: var(--primary-dark);
+      font-weight: 800;
+      font-size: 0.9rem;
+      padding: 5px 14px;
+      border-radius: 999px;
+    }
+
+    .timer-box {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: var(--text-muted);
+      background: var(--surface-soft);
+      border: 1px solid #cbd5e1;
+      padding: 5px 14px;
+      border-radius: 999px;
+    }
+
+    .progress-track {
+      width: 100%;
+      height: 10px;
+      background: #e2e8f0;
+      border-radius: 999px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      height: 100%;
+      width: 0%;
+      background: linear-gradient(90deg, var(--primary), var(--success));
+      transition: width 0.35s ease;
+    }
+
+    .nav-pills {
+      display: flex;
+      gap: 6px;
+      overflow-x: auto;
+      padding-top: 10px;
+      scrollbar-width: none;
+    }
+
+    .nav-pills::-webkit-scrollbar {
+      display: none;
+    }
+
+    .nav-pill {
+      border: 2px solid #cbd5e1;
+      background: var(--surface);
+      color: var(--text-muted);
+      padding: 6px 14px;
+      border-radius: 999px;
+      font-size: 0.88rem;
+      font-weight: 700;
+      cursor: pointer;
+      white-space: nowrap;
+      transition: all 0.2s;
+    }
+
+    .nav-pill.active {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .nav-pill.done {
+      border-color: var(--success);
+      color: var(--success);
+      background: var(--success-light);
+    }
+
+    .nav-pill.active.done {
+      background: var(--success);
+      color: #fff;
+    }
+
+    .container {
+      max-width: 860px;
+      margin: 20px auto 0;
+      padding: 0 16px;
+    }
+
+    .card {
+      background: var(--surface);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 24px;
+      margin-bottom: 20px;
+      border: 2px solid #ffffff;
+    }
+
+    .module {
+      display: none;
+      animation: fadeIn 0.25s ease;
+    }
+
+    .module.active {
+      display: block;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: translateY(8px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    h1 {
+      font-size: 1.6rem;
+      line-height: 1.25;
+      margin-bottom: 12px;
+      color: var(--primary-dark);
+    }
+
+    h2 {
+      font-size: 1.38rem;
+      margin-bottom: 12px;
+      color: var(--primary-dark);
+    }
+
+    h3 {
+      font-size: 1.12rem;
+      margin: 16px 0 8px;
+    }
+
+    p {
+      margin-bottom: 12px;
+    }
+
+    .time-tag {
+      display: inline-block;
+      font-size: 0.85rem;
+      font-weight: 800;
+      color: #b45309;
+      background: var(--accent-light);
+      padding: 4px 12px;
+      border-radius: 10px;
+      margin-bottom: 10px;
+    }
+
+    .callout {
+      background: var(--primary-light);
+      border-left: 5px solid var(--primary);
+      padding: 14px 16px;
+      border-radius: 0 14px 14px 0;
+      margin: 14px 0;
+    }
+
+    .callout.warn {
+      background: var(--accent-light);
+      border-left-color: var(--accent);
+    }
+
+    .callout.success {
+      background: var(--success-light);
+      border-left-color: var(--success);
+    }
+
+    .grid-2 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 14px;
+      margin: 14px 0;
+    }
+
+    .grid-3 {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+      gap: 12px;
+      margin: 14px 0;
+    }
+
+    .info-box {
+      background: var(--surface-soft);
+      border: 2px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 16px;
+    }
+
+    .info-box strong {
+      display: block;
+      font-size: 1.08rem;
+      margin-bottom: 6px;
+      color: var(--primary-dark);
+    }
+
+    .interactive-zone {
+      background: #f8fafc;
+      border: 3px dashed #7dd3fc;
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-top: 18px;
+    }
+
+    .interactive-title {
+      font-weight: 800;
+      font-size: 1.14rem;
+      color: var(--primary-dark);
+      margin-bottom: 10px;
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      background: var(--primary);
+      color: #fff;
+      border: none;
+      border-radius: 12px;
+      padding: 12px 22px;
+      font-size: 1rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.1s;
+    }
+
+    .btn:hover {
+      background: var(--primary-dark);
+    }
+
+    .btn:active {
+      transform: scale(0.98);
+    }
+
+    .btn-secondary {
+      background: #e2e8f0;
+      color: var(--text);
+    }
+
+    .btn-secondary:hover {
+      background: #cbd5e1;
+    }
+
+    .btn-success {
+      background: var(--success);
+    }
+
+    .btn-success:hover {
+      background: #047857;
+    }
+
+    .btn-sm {
+      padding: 8px 16px;
+      font-size: 0.92rem;
+      border-radius: 10px;
+    }
+
+    .nav-footer {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      margin-top: 22px;
+      padding-top: 16px;
+      border-top: 2px solid #e2e8f0;
+      flex-wrap: wrap;
+    }
+
+    .input-field {
+      width: 100%;
+      padding: 12px 16px;
+      border: 2px solid #cbd5e1;
+      border-radius: 12px;
+      font-size: 1.05rem;
+      margin: 8px 0 14px;
+      font-family: inherit;
+    }
+
+    .input-field:focus {
+      outline: none;
+      border-color: var(--primary);
+    }
+
+    /* Карточки выбора */
+    .sort-item {
+      background: var(--surface);
+      border: 2px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 14px;
+      margin-bottom: 12px;
+    }
+
+    .sort-item-text {
+      margin-bottom: 10px;
+      font-weight: 600;
+    }
+
+    .sort-buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .choice-btn {
+      background: var(--surface-soft);
+      color: var(--text);
+      border: 2px solid #cbd5e1;
+      padding: 8px 16px;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      font-weight: 700;
+      cursor: pointer;
+      transition: all 0.15s;
+    }
+
+    .choice-btn:hover {
+      background: #e2e8f0;
+    }
+
+    .choice-btn.selected {
+      background: var(--primary);
+      color: #fff;
+      border-color: var(--primary);
+    }
+
+    .choice-btn.correct {
+      background: var(--success);
+      color: #fff;
+      border-color: var(--success);
+    }
+
+    .choice-btn.wrong {
+      background: var(--danger);
+      color: #fff;
+      border-color: var(--danger);
+    }
+
+    /* Интерактивная мышь (Шаг 1) */
+    .mouse-lab {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 16px;
+      align-items: center;
+      margin: 12px 0;
+    }
+
+    .mouse-part {
+      cursor: pointer;
+      transition: fill 0.2s;
+    }
+
+    /* Клавиши клавиатуры (Шаг 2) */
+    .kbd-showcase {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      margin: 14px 0;
+    }
+
+    .key-cap {
+      background: #ffffff;
+      border: 2px solid #94a3b8;
+      border-bottom-width: 5px;
+      border-radius: 12px;
+      padding: 12px 18px;
+      font-weight: 800;
+      font-size: 1rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: all 0.12s;
+      user-select: none;
+    }
+
+    .key-cap:active {
+      transform: translateY(3px);
+      border-bottom-width: 2px;
+    }
+
+    .key-cap.active-key {
+      background: var(--primary);
+      color: #ffffff;
+      border-color: var(--primary-dark);
+    }
+
+    /* Практика 3.1: Клики и двойные клики */
+    .target-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 12px;
+      margin: 14px 0;
+    }
+
+    .click-target {
+      background: #ffffff;
+      border: 3px solid #93c5fd;
+      border-radius: 16px;
+      padding: 16px 10px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+      transition: all 0.2s;
+    }
+
+    .click-target.double-type {
+      border-color: #fbbf24;
+      background: #fffbeb;
+    }
+
+    .click-target.completed {
+      background: var(--success-light);
+      border-color: var(--success);
+      color: #065f46;
+    }
+
+    .target-icon {
+      font-size: 2.2rem;
+      display: block;
+      margin-bottom: 6px;
+    }
+
+    /* Практика 3.2: Перетаскивание / Сортировка в папки */
+    .drag-pool {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      justify-content: center;
+      min-height: 54px;
+      padding: 10px;
+      background: #ffffff;
+      border: 2px solid #cbd5e1;
+      border-radius: 14px;
+      margin-bottom: 14px;
+    }
+
+    .drag-chip {
+      background: var(--primary-light);
+      border: 2px solid var(--primary);
+      color: var(--primary-dark);
+      padding: 8px 16px;
+      border-radius: 12px;
+      font-weight: 800;
+      cursor: grab;
+      user-select: none;
+      transition: all 0.15s;
+    }
+
+    .drag-chip.picked {
+      background: var(--accent);
+      border-color: #b45309;
+      color: #ffffff;
+      transform: scale(1.05);
+    }
+
+    .drop-folders {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+      gap: 14px;
+    }
+
+    .drop-folder {
+      background: #ffffff;
+      border: 3px dashed #94a3b8;
+      border-radius: 16px;
+      padding: 14px;
+      min-height: 135px;
+      text-align: center;
+      cursor: pointer;
+      transition: all 0.2s;
+    }
+
+    .drop-folder.drag-over {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .folder-items {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      justify-content: center;
+      margin-top: 10px;
+    }
+
+    /* Итоговый тест */
+    .quiz-q {
+      background: var(--surface-soft);
+      border: 2px solid #e2e8f0;
+      border-radius: 14px;
+      padding: 16px;
+      margin-bottom: 14px;
+    }
+
+    .quiz-opt {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 12px 14px;
+      margin-top: 8px;
+      border: 2px solid #cbd5e1;
+      border-radius: 10px;
+      background: var(--surface);
+      color: var(--text);
+      cursor: pointer;
+      font-size: 0.98rem;
+      font-weight: 600;
+      transition: all 0.15s;
+    }
+
+    .quiz-opt:hover {
+      border-color: var(--primary);
+    }
+
+    .quiz-opt.selected {
+      border-color: var(--primary);
+      background: var(--primary-light);
+    }
+
+    .quiz-opt.correct {
+      border-color: var(--success);
+      background: var(--success-light);
+      color: #065f46;
+      font-weight: 800;
+    }
+
+    .quiz-opt.wrong {
+      border-color: var(--danger);
+      background: var(--danger-light);
+      color: #991b1b;
+    }
+
+    /* Грамота */
+    .cert-box {
+      border: 4px solid var(--accent);
+      background: linear-gradient(135deg, #ffffff 0%, #fef3c7 100%);
+      border-radius: 22px;
+      padding: 26px;
+      text-align: center;
+      margin-top: 18px;
+    }
+
+    .cert-grade {
+      display: inline-block;
+      font-size: 1.7rem;
+      font-weight: 900;
+      color: var(--success);
+      background: var(--success-light);
+      border: 2px dashed var(--success);
+      padding: 10px 26px;
+      border-radius: 14px;
+      margin: 12px 0;
+    }
+
+    .feedback {
+      margin-top: 10px;
+      font-weight: 700;
+      font-size: 0.98rem;
+    }
+
+    @media (max-width: 600px) {
+      .card { padding: 16px; }
+      h1 { font-size: 1.38rem; }
+      h2 { font-size: 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+  <header class="topbar">
+    <div class="topbar-inner">
+      <div class="topbar-row">
+        <span class="badge">Информатика • 2 класс</span>
+        <span class="timer-box" id="timerDisplay">Время урока: 00:00 / 45:00</span>
+      </div>
+      <div class="progress-track">
+        <div class="progress-fill" id="progressBar"></div>
+      </div>
+      <nav class="nav-pills" id="navPills">
+        <button class="nav-pill active" onclick="goToStep(0)">Старт</button>
+        <button class="nav-pill" onclick="goToStep(1)">1. Мышь</button>
+        <button class="nav-pill" onclick="goToStep(2)">2. Клавиатура</button>
+        <button class="nav-pill" onclick="goToStep(3)">3. Практика: Мышь</button>
+        <button class="nav-pill" onclick="goToStep(4)">4. Практика: Клавиатура</button>
+        <button class="nav-pill" onclick="goToStep(5)">5. Итоговый тест</button>
+      </nav>
+    </div>
+  </header>
+
+  <main class="container">
+
+    <!-- ШАГ 0: ВВЕДЕНИЕ -->
+    <section class="module active" id="step-0">
+      <div class="card">
+        <span class="time-tag">Самостоятельный урок и Практическая работа №2 • 45 минут</span>
+        <h1>Устройства компьютера: клавиатура и мышь</h1>
+        <p>Привет! Сегодня мы познакомимся с главными помощниками человека при работе за компьютером — <strong>клавиатурой</strong> и <strong>компьютерной мышью</strong>. С их помощью мы передаём команды и вводим информацию в компьютер.</p>
+
+        <div class="callout">
+          <strong>Что тебя ждёт на уроке:</strong><br />
+          1. Изучишь устройство компьютерной мыши и её основные приёмы.<br />
+          2. Узнаешь секреты главных клавиш на клавиатуре.<br />
+          3. Выполнишь <strong>Практическую работу №2</strong> прямо на экране и получишь оценку за урок!
+        </div>
+
+        <label for="studentNameInput"><strong>Впиши свою фамилию, имя и класс:</strong></label>
+        <input type="text" id="studentNameInput" class="input-field" placeholder="Например: Смирнова Маша, 2-А" />
+
+        <div class="nav-footer">
+          <span></span>
+          <button class="btn" onclick="startLesson()">Начать урок →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ШАГ 1: КОМПЬЮТЕРНАЯ МЫШЬ -->
+    <section class="module" id="step-1">
+      <div class="card">
+        <span class="time-tag">Часть 1 • Рекомендуемое время: 10 минут</span>
+        <h2>1. Компьютерная мышь и её приёмы</h2>
+        <p><strong>Компьютерная мышь</strong> — это устройство <strong>ввода</strong> информации. Когда мы двигаем мышь по столу или коврику, по экрану монитора бегает маленькая стрелочка — <strong>указатель мыши</strong>.</p>
+
+        <div class="interactive-zone">
+          <div class="interactive-title">Изучи мышь: нажми на её части на рисунке</div>
+          <div class="mouse-lab">
+            <div style="text-align: center;">
+              <svg viewBox="0 0 220 270" style="max-width: 195px; width: 100%; height: auto;">
+                <!-- Провод -->
+                <path d="M 110 35 C 110 10, 140 10, 140 0" fill="none" stroke="#64748b" stroke-width="5" />
+                <!-- Корпус -->
+                <rect x="45" y="35" width="130" height="215" rx="60" fill="#e2e8f0" stroke="#475569" stroke-width="4" />
+                <!-- Левая кнопка -->
+                <path id="svgLMB" class="mouse-part" onclick="showMousePart('lmb')" d="M 108 37 L 108 125 L 47 125 L 47 95 C 47 58, 72 37, 108 37 Z" fill="#38bdf8" stroke="#475569" stroke-width="3" />
+                <!-- Правая кнопка -->
+                <path id="svgRMB" class="mouse-part" onclick="showMousePart('rmb')" d="M 112 37 L 112 125 L 173 125 L 173 95 C 173 58, 148 37, 112 37 Z" fill="#cbd5e1" stroke="#475569" stroke-width="3" />
+                <!-- Колёсико -->
+                <rect id="svgWheel" class="mouse-part" onclick="showMousePart('wheel')" x="99" y="60" width="22" height="46" rx="10" fill="#f59e0b" stroke="#0f172a" stroke-width="3" />
+                <text x="77" y="92" font-size="14" font-weight="bold" text-anchor="middle" fill="#0f172a" pointer-events="none">ЛКМ</text>
+                <text x="143" y="92" font-size="14" font-weight="bold" text-anchor="middle" fill="#0f172a" pointer-events="none">ПКМ</text>
+              </svg>
+            </div>
+            <div>
+              <div class="sort-buttons" style="margin-bottom: 10px;">
+                <button class="btn btn-sm" onclick="showMousePart('lmb')">Левая кнопка</button>
+                <button class="btn btn-sm btn-secondary" onclick="showMousePart('rmb')">Правая кнопка</button>
+                <button class="btn btn-sm btn-secondary" onclick="showMousePart('wheel')">Колёсико</button>
+              </div>
+              <div class="info-box" id="mousePartDesc">
+                <strong>Левая кнопка мыши (ЛКМ)</strong>
+                Самая главная кнопка! На неё нажимают указательным пальцем, чтобы выбирать объекты, нажимать кнопки и открывать программы.
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <h3>Четыре главных приёма работы с мышью:</h3>
+        <div class="grid-2">
+          <div class="info-box">
+            <strong>1. Щелчок (клик)</strong>
+            Один быстрый нажим на левую кнопку мыши. Помогает выделить значок или нажать кнопку на экране.
+          </div>
+          <div class="info-box">
+            <strong>2. Двойной щелчок</strong>
+            Два очень быстрых нажатия на левую кнопку подряд (щёлк-щёлк!). Открывает папки и программы.
+          </div>
+          <div class="info-box">
+            <strong>3. Перетаскивание</strong>
+            Нажать левую кнопку, <em>не отпуская её</em> передвинуть мышь на новое место и только потом отпустить.
+          </div>
+          <div class="info-box">
+            <strong>4. Прокрутка</strong>
+            Вращение колёсика мыши вперёд или назад для листания длинной страницы вверх и вниз.
+          </div>
+        </div>
+
+        <div class="interactive-zone">
+          <div class="interactive-title">Тренажёр: Соедини действие и приём мыши</div>
+          <div id="m1Container"></div>
+          <button class="btn btn-sm" onclick="checkM1()">Проверить ответы</button>
+          <div class="feedback" id="m1Feedback"></div>
+        </div>
+
+        <div class="nav-footer">
+          <button class="btn btn-secondary" onclick="goToStep(0)">← Назад</button>
+          <button class="btn" onclick="goToStep(2)">Дальше: Клавиатура →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ШАГ 2: КЛАВИАТУРА -->
+    <section class="module" id="step-2">
+      <div class="card">
+        <span class="time-tag">Часть 2 • Рекомендуемое время: 10 минут</span>
+        <h2>2. Клавиатура и её главные клавиши</h2>
+        <p><strong>Клавиатура</strong> — это устройство <strong>ввода</strong> букв, цифр, знаков препинания и команд управления. На клавишах нарисованы русские и английские буквы, цифры и специальные значки.</p>
+
+        <div class="interactive-zone">
+          <div class="interactive-title">Интерактивная клавиатура: Нажми на любую клавишу-помощника</div>
+          <div class="kbd-showcase" id="kbdShowcase">
+            <button class="key-cap active-key" onclick="showKeyInfo('space', this)">Пробел (Space)</button>
+            <button class="key-cap" onclick="showKeyInfo('enter', this)">Enter (Ввод)</button>
+            <button class="key-cap" onclick="showKeyInfo('backspace', this)">Backspace (←)</button>
+            <button class="key-cap" onclick="showKeyInfo('shift', this)">Shift</button>
+            <button class="key-cap" onclick="showKeyInfo('arrows', this)">Стрелки (↑ ↓ ← →)</button>
+          </div>
+          <div class="info-box" id="keyInfoDisplay">
+            <strong>Клавиша «Пробел» (самая длинная клавиша внизу)</strong>
+            Делает пустой отступ (пробел) между словами, чтобы слова не слипались в одно длинное слово.
+          </div>
+        </div>
+
+        <div class="interactive-zone">
+          <div class="interactive-title">Мини-проверка: Выбери нужную клавишу</div>
+          <div id="m2Container"></div>
+          <button class="btn btn-sm" onclick="checkM2()">Проверить</button>
+          <div class="feedback" id="m2Feedback"></div>
+        </div>
+
+        <div class="nav-footer">
+          <button class="btn btn-secondary" onclick="goToStep(1)">← Назад</button>
+          <button class="btn" onclick="goToStep(3)">К Практической работе (Мышь) →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ШАГ 3: ПРАКТИЧЕСКАЯ РАБОТА №2 — ОСВОЕНИЕ ПРИЁМОВ РАБОТЫ С МЫШЬЮ -->
+    <section class="module" id="step-3">
+      <div class="card">
+        <span class="time-tag">Практическая работа №2 (Часть 1) • Рекомендуемое время: 10 минут</span>
+        <h2>3. Практикум: Осваиваем приёмы работы с мышью</h2>
+        <p>Выполни два практических упражнения. Если ты работаешь на телефоне или планшете, вместо щелчков мышью используй касания пальцем по экрану.</p>
+
+        <div class="interactive-zone">
+          <div class="interactive-title">Задание 3.1: Одиночный и двойной щелчок</div>
+          <p style="font-size: 0.95rem;">• Нажми <strong>1 раз</strong> на синие карточки со звёздочками.<br />• Нажми <strong>2 раза быстро подряд</strong> (двойной щелчок) на жёлтые сундучки, чтобы открыть их!</p>
+
+          <div class="target-grid">
+            <div class="click-target" id="tgt-0" onclick="handleSingleTarget(0)">
+              <span class="target-icon" id="ico-0">⭐</span>
+              <strong>Звезда 1</strong><br />
+              <small id="lbl-0">Нажми 1 раз</small>
+            </div>
+            <div class="click-target" id="tgt-1" onclick="handleSingleTarget(1)">
+              <span class="target-icon" id="ico-1">⭐</span>
+              <strong>Звезда 2</strong><br />
+              <small id="lbl-1">Нажми 1 раз</small>
+            </div>
+            <div class="click-target double-type" id="tgt-2" onclick="handleDoubleTarget(2)">
+              <span class="target-icon" id="ico-2">🧰</span>
+              <strong>Сундук 1</strong><br />
+              <small id="lbl-2">Нажми 2 раза!</small>
+            </div>
+            <div class="click-target double-type" id="tgt-3" onclick="handleDoubleTarget(3)">
+              <span class="target-icon" id="ico-3">🧰</span>
+              <strong>Сундук 2</strong><br />
+              <small id="lbl-3">Нажми 2 раза!</small>
+            </div>
+          </div>
+          <div class="feedback" id="m3aFeedback"></div>
+        </div>
+
+        <div class="interactive-zone">
+          <div class="interactive-title">Задание 3.2: Перетаскивание предметов по папкам</div>
+          <p style="font-size: 0.95rem;">Разложи карточки по двум папкам: перетащи их мышкой <strong>или</strong> нажми сначала на карточку, а потом на нужную папку:</p>
+
+          <div class="drag-pool" id="dragPool"></div>
+
+          <div class="drop-folders">
+            <div class="drop-folder" id="folder-devices"
+                 ondragover="allowDrop(event)"
+                 ondragleave="leaveDrop(event)"
+                 ondrop="dropToFolder(event, 'devices')"
+                 onclick="clickFolder('devices')">
+              <strong>💻 Устройства компьютера</strong>
+              <div class="folder-items" id="items-devices"></div>
+            </div>
+            <div class="drop-folder" id="folder-other"
+                 ondragover="allowDrop(event)"
+                 ondragleave="leaveDrop(event)"
+                 ondrop="dropToFolder(event, 'other')"
+                 onclick="clickFolder('other')">
+              <strong>🎒 Школьные и обычные вещи</strong>
+              <div class="folder-items" id="items-other"></div>
+            </div>
+          </div>
+
+          <div style="margin-top: 12px;">
+            <button class="btn btn-sm btn-secondary" onclick="resetDragGame()">Начать раскладку заново</button>
+          </div>
+          <div class="feedback" id="m3bFeedback"></div>
+        </div>
+
+        <div class="nav-footer">
+          <button class="btn btn-secondary" onclick="goToStep(2)">← Назад</button>
+          <button class="btn" onclick="goToStep(4)">К Практической работе (Клавиатура) →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ШАГ 4: ПРАКТИЧЕСКАЯ РАБОТА №2 — ОСВОЕНИЕ ПРИЁМОВ РАБОТЫ С КЛАВИАТУРОЙ -->
+    <section class="module" id="step-4">
+      <div class="card">
+        <span class="time-tag">Практическая работа №2 (Часть 2) • Рекомендуемое время: 8 минут</span>
+        <h2>4. Практикум: Осваиваем приёмы работы с клавиатурой</h2>
+        <p>Теперь потренируемся исправлять ошибки и печатать текст без опечаток.</p>
+
+        <div class="interactive-zone">
+          <div class="interactive-title">Задание 4.1: Исправь ошибки с помощью клавиши Backspace</div>
+          <p style="font-size: 0.95rem;">В слове ниже спрятались лишние буквы! Поставь курсор в окошко, сотри лишние буквы клавишей <strong>Backspace (←)</strong> и нажми «Проверить слово»:</p>
+          <div class="callout warn" style="margin: 8px 0;">
+            Должно получиться слово: <strong>КЛАВИАТУРА</strong>
+          </div>
+          <input type="text" id="fixWordInput" class="input-field" value="КЛАВВИАТУРРА" />
+          <button class="btn btn-sm" onclick="checkFixWord()">Проверить слово</button>
+          <div class="feedback" id="m4aFeedback"></div>
+        </div>
+
+        <div class="interactive-zone">
+          <div class="interactive-title">Задание 4.2: Напечатай предложение с пробелами</div>
+          <p style="font-size: 0.95rem;">Напечатай в окошке ниже фразу (не забудь <strong>пробелы</strong> между словами и <strong>восклицательный знак</strong> в конце):</p>
+          <div class="callout" style="margin: 8px 0; font-size: 1.15rem;">
+            <strong>Я умею печатать!</strong>
+          </div>
+          <input type="text" id="typePhraseInput" class="input-field" placeholder="Напечатай фразу здесь..." />
+          <button class="btn btn-sm" onclick="checkTypePhrase()">Проверить фразу</button>
+          <div class="feedback" id="m4bFeedback"></div>
+        </div>
+
+        <div class="nav-footer">
+          <button class="btn btn-secondary" onclick="goToStep(3)">← Назад</button>
+          <button class="btn" onclick="goToStep(5)">Перейти к итоговому тесту →</button>
+        </div>
+      </div>
+    </section>
+
+    <!-- ШАГ 5: ИТОГОВЫЙ ТЕСТ -->
+    <section class="module" id="step-5">
+      <div class="card">
+        <span class="time-tag">Итоговый контроль • Рекомендуемое время: 7 минут</span>
+        <h2>5. Проверочный тест по уроку</h2>
+        <p>Ответь на 6 вопросов, чтобы завершить урок и получить именную грамоту с оценкой!</p>
+
+        <div id="finalQuizContainer"></div>
+
+        <button class="btn btn-success" style="width: 100%; margin-top: 10px; font-size: 1.1rem; padding: 14px;" onclick="finishLesson()">Завершить урок и получить оценку</button>
+
+        <div id="certificateSection" style="display: none;">
+          <div class="cert-box">
+            <div style="font-size: 0.9rem; text-transform: uppercase; letter-spacing: 1px; color: var(--text-muted); font-weight: 800;">
+              Грамота за прохождение урока • Информатика 2 класс
+            </div>
+            <h2 id="certStudentName" style="margin: 8px 0; color: var(--text);">Ученик 2 класса</h2>
+            <p style="margin-bottom: 4px;">Тема: «Устройства компьютера: клавиатура, мышь. Практическая работа №2»</p>
+            <div class="cert-grade" id="certGradeText">Оценка: 5 (Отлично!)</div>
+            <p id="certStats" style="font-weight: 700;"></p>
+            <p id="certCode" style="font-family: monospace; font-size: 0.92rem; color: var(--text-muted);"></p>
+            <div class="callout success" style="text-align: left; margin-top: 12px;">
+              Сделай снимок экрана (скриншот) этой грамоты и отправь учителю!
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-footer">
+          <button class="btn btn-secondary" onclick="goToStep(4)">← Вернуться к практике</button>
+          <button class="btn btn-secondary btn-sm" onclick="resetAll()">Пройти заново</button>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <script>
+    // --- СОСТОЯНИЕ ---
+    const state = {
+      currentStep: 0,
+      completedSteps: [false, false, false, false, false, false],
+      secondsElapsed: 0,
+      studentName: "",
+      m3aDone: false,
+      m3bDone: false,
+      m4aDone: false,
+      m4bDone: false
+    };
+
+    // --- ТАЙМЕР ---
+    setInterval(() => {
+      state.secondsElapsed++;
+      const m = String(Math.floor(state.secondsElapsed / 60)).padStart(2, "0");
+      const s = String(state.secondsElapsed % 60).padStart(2, "0");
+      document.getElementById("timerDisplay").textContent = `Время урока: ${m}:${s} / 45:00`;
+    }, 1000);
+
+    // --- НАВИГАЦИЯ ---
+    function goToStep(idx) {
+      document.querySelectorAll(".module").forEach((el, i) => el.classList.toggle("active", idx === i));
+      document.querySelectorAll(".nav-pill").forEach((pill, i) => {
+        pill.classList.toggle("active", idx === i);
+        pill.classList.toggle("done", state.completedSteps[i]);
+      });
+      state.currentStep = idx;
+      updateProgress();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    function markStepDone(idx) {
+      state.completedSteps[idx] = true;
+      const pills = document.querySelectorAll(".nav-pill");
+      if (pills[idx]) pills[idx].classList.add("done");
+      updateProgress();
+    }
+
+    function updateProgress() {
+      const done = state.completedSteps.filter(Boolean).length;
+      const pct = Math.min(100, Math.round((done / 5) * 100));
+      document.getElementById("progressBar").style.width = `${pct}%`;
+    }
+
+    function startLesson() {
+      const val = document.getElementById("studentNameInput").value.trim();
+      state.studentName = val || "Ученик 2 класса";
+      markStepDone(0);
+      goToStep(1);
+    }
+
+    // --- ШАГ 1: ИНТЕРАКТИВНАЯ МЫШЬ И ТРЕНАЖЁР ---
+    function showMousePart(part) {
+      document.getElementById("svgLMB").setAttribute("fill", part === "lmb" ? "#38bdf8" : "#cbd5e1");
+      document.getElementById("svgRMB").setAttribute("fill", part === "rmb" ? "#38bdf8" : "#cbd5e1");
+      document.getElementById("svgWheel").setAttribute("fill", part === "wheel" ? "#f59e0b" : "#94a3b8");
+
+      const desc = document.getElementById("mousePartDesc");
+      if (part === "lmb") {
+        desc.innerHTML = "<strong>Левая кнопка мыши (ЛКМ)</strong>Самая главная кнопка! На неё нажимают указательным пальцем, чтобы выбирать объекты, нажимать кнопки и открывать программы.";
+      } else if (part === "rmb") {
+        desc.innerHTML = "<strong>Правая кнопка мыши (ПКМ)</strong>Кнопка-подсказка! Нажатие на неё открывает специальное меню со списком команд (например: «Копировать», «Удалить», «Переименовать»).";
+      } else {
+        desc.innerHTML = "<strong>Колёсико прокрутки</strong>Позволяет быстро прокручивать длинные страницы текста или картинки вверх и вниз.";
+      }
+    }
+
+    const m1Data = [
+      { text: "Один быстрый нажим на левую кнопку мыши", answer: "Щелчок" },
+      { text: "Два быстрых нажатия на левую кнопку мыши подряд", answer: "Двойной щелчок" },
+      { text: "Передвижение мыши с зажатой левой кнопкой", answer: "Перетаскивание" },
+      { text: "Вращение колёсика мыши вверх или вниз", answer: "Прокрутка" }
+    ];
+    const m1User = {};
+
+    function renderM1() {
+      const box = document.getElementById("m1Container");
+      box.innerHTML = "";
+      const opts = ["Щелчок", "Двойной щелчок", "Перетаскивание", "Прокрутка"];
+      m1Data.forEach((item, idx) => {
+        const div = document.createElement("div");
+        div.className = "sort-item";
+        div.innerHTML = `
+          <div class="sort-item-text">${idx + 1}. ${item.text}</div>
+          <div class="sort-buttons" id="m1-btns-${idx}">
+            ${opts.map(o => `<button class="choice-btn" onclick="selM1(${idx}, '${o}', this)">${o}</button>`).join("")}
+          </div>
+        `;
+        box.appendChild(div);
+      });
+    }
+
+    function selM1(idx, opt, btn) {
+      m1User[idx] = opt;
+      document.getElementById(`m1-btns-${idx}`).querySelectorAll(".choice-btn").forEach(b => b.classList.remove("selected", "correct", "wrong"));
+      btn.classList.add("selected");
+    }
+
+    function checkM1() {
+      let ok = 0;
+      m1Data.forEach((item, idx) => {
+        const chosen = m1User[idx];
+        document.getElementById(`m1-btns-${idx}`).querySelectorAll(".choice-btn").forEach(b => {
+          b.classList.remove("selected", "correct", "wrong");
+          if (b.textContent === chosen) {
+            if (chosen === item.answer) { b.classList.add("correct"); ok++; }
+            else { b.classList.add("wrong"); }
+          }
+        });
+      });
+      const fb = document.getElementById("m1Feedback");
+      if (ok === m1Data.length) {
+        fb.style.color = "var(--success)";
+        fb.textContent = "Молодец! Все 4 приёма работы с мышью определены верно!";
+        markStepDone(1);
+      } else {
+        fb.style.color = "#b45309";
+        fb.textContent = `Правильно: ${ok} из ${m1Data.length}. Поправь красные кнопки и проверь ещё раз!`;
+      }
+    }
+    renderM1();
+
+    // --- ШАГ 2: КЛАВИАТУРА ---
+    const keyDescriptions = {
+      space: "<strong>Клавиша «Пробел» (самая длинная клавиша внизу)</strong>Делает пустой отступ (пробел) между словами, чтобы слова не слипались в одно длинное слово.",
+      enter: "<strong>Клавиша «Enter» (Ввод)</strong>Подтверждает команду (как кнопка «ОК») или переносит курсор на новую строчку вниз при наборе текста.",
+      backspace: "<strong>Клавиша «Backspace» (стрелка влево ←)</strong>Работает как ластик: стирает букву или знак слева от курсора, если ты допустил опечатку.",
+      shift: "<strong>Клавиша «Shift»</strong>Если зажать Shift и нажать букву, она напечатается ЗАГЛАВНОЙ (большой). Также помогает печатать знаки над цифрами (например, ! или ?).",
+      arrows: "<strong>Клавиши со стрелками (↑ ↓ ← →)</strong>Помогают передвигать курсор по тексту или управлять героем в обучающих играх."
+    };
+
+    function showKeyInfo(key, btn) {
+      document.querySelectorAll("#kbdShowcase .key-cap").forEach(k => k.classList.remove("active-key"));
+      btn.classList.add("active-key");
+      document.getElementById("keyInfoDisplay").innerHTML = keyDescriptions[key];
+    }
+
+    const m2Data = [
+      { text: "Эта клавиша стирает ошибочную букву слева от курсора", answer: "Backspace" },
+      { text: "Эта длинная клавиша ставит отступ между словами", answer: "Пробел" },
+      { text: "Эта клавиша переносит текст на новую строчку", answer: "Enter" },
+      { text: "Эта клавиша помогает написать заглавную букву", answer: "Shift" }
+    ];
+    const m2User = {};
+
+    function renderM2() {
+      const box = document.getElementById("m2Container");
+      box.innerHTML = "";
+      const opts = ["Пробел", "Enter", "Backspace", "Shift"];
+      m2Data.forEach((item, idx) => {
+        const div = document.createElement("div");
+        div.className = "sort-item";
+        div.innerHTML = `
+          <div class="sort-item-text">${idx + 1}. ${item.text}</div>
+          <div class="sort-buttons" id="m2-btns-${idx}">
+            ${opts.map(o => `<button class="choice-btn" onclick="selM2(${idx}, '${o}', this)">${o}</button>`).join("")}
+          </div>
+        `;
+        box.appendChild(div);
+      });
+    }
+
+    function selM2(idx, opt, btn) {
+      m2User[idx] = opt;
+      document.getElementById(`m2-btns-${idx}`).querySelectorAll(".choice-btn").forEach(b => b.classList.remove("selected", "correct", "wrong"));
+      btn.classList.add("selected");
+    }
+
+    function checkM2() {
+      let ok = 0;
+      m2Data.forEach((item, idx) => {
+        const chosen = m2User[idx];
+        document.getElementById(`m2-btns-${idx}`).querySelectorAll(".choice-btn").forEach(b => {
+          b.classList.remove("selected", "correct", "wrong");
+          if (b.textContent === chosen) {
+            if (chosen === item.answer) { b.classList.add("correct"); ok++; }
+            else { b.classList.add("wrong"); }
+          }
+        });
+      });
+      const fb = document.getElementById("m2Feedback");
+      if (ok === m2Data.length) {
+        fb.style.color = "var(--success)";
+        fb.textContent = "Отлично! Ты знаешь назначение всех главных клавиш!";
+        markStepDone(2);
+      } else {
+        fb.style.color = "#b45309";
+        fb.textContent = `Правильно: ${ok} из ${m2Data.length}. Поправь выделенные красным ответы!`;
+      }
+    }
+    renderM2();
+
+    // --- ШАГ 3: ПРАКТИКА МЫШИ ---
+    const targetDone = [false, false, false, false];
+    const lastTapTime = [0, 0, 0, 0];
+
+    function handleSingleTarget(idx) {
+      if (targetDone[idx]) return;
+      targetDone[idx] = true;
+      document.getElementById(`tgt-${idx}`).classList.add("completed");
+      document.getElementById(`ico-${idx}`).textContent = "🌟";
+      document.getElementById(`lbl-${idx}`).textContent = "Готово!";
+      checkStep3Complete();
+    }
+
+    function handleDoubleTarget(idx) {
+      if (targetDone[idx]) return;
+      const now = Date.now();
+      if (now - lastTapTime[idx] < 550) {
+        targetDone[idx] = true;
+        document.getElementById(`tgt-${idx}`).classList.add("completed");
+        document.getElementById(`ico-${idx}`).textContent = "💎";
+        document.getElementById(`lbl-${idx}`).textContent = "Открыто!";
+        checkStep3Complete();
+      } else {
+        lastTapTime[idx] = now;
+        document.getElementById(`lbl-${idx}`).textContent = "Ещё раз быстро!";
+        setTimeout(() => {
+          if (!targetDone[idx]) {
+            document.getElementById(`lbl-${idx}`).textContent = "Нажми 2 раза!";
+          }
+        }, 600);
+      }
+    }
+
+    // Задание 3.2: Перетаскивание и сортировка
+    const dragItemsList = [
+      { id: "d1", label: "🖱️ Компьютерная мышь", folder: "devices" },
+      { id: "d2", label: "⌨️ Клавиатура", folder: "devices" },
+      { id: "d3", label: "🖥️ Монитор", folder: "devices" },
+      { id: "d4", label: "⚽ Футбольный мяч", folder: "other" },
+      { id: "d5", label: "🍎 Спелое яблоко", folder: "other" },
+      { id: "d6", label: "🧸 Плюшевый мишка", folder: "other" }
+    ];
+    let pickedChipId = null;
+    let sortedCount = 0;
+
+    function initDragGame() {
+      const pool = document.getElementById("dragPool");
+      pool.innerHTML = "";
+      document.getElementById("items-devices").innerHTML = "";
+      document.getElementById("items-other").innerHTML = "";
+      pickedChipId = null;
+      sortedCount = 0;
+
+      const shuffled = [...dragItemsList].sort(() => Math.random() - 0.5);
+      shuffled.forEach(item => {
+        const el = document.createElement("div");
+        el.className = "drag-chip";
+        el.id = item.id;
+        el.textContent = item.label;
+        el.draggable = true;
+        el.ondragstart = (ev) => {
+          ev.dataTransfer.setData("text/plain", item.id);
+          pickedChipId = item.id;
+        };
+        el.onclick = () => selectChip(item.id);
+        pool.appendChild(el);
+      });
+    }
+
+    function selectChip(id) {
+      document.querySelectorAll(".drag-chip").forEach(c => c.classList.remove("picked"));
+      if (pickedChipId === id) {
+        pickedChipId = null;
+      } else {
+        pickedChipId = id;
+        const el = document.getElementById(id);
+        if (el) el.classList.add("picked");
+      }
+    }
+
+    function allowDrop(ev) {
+      ev.preventDefault();
+      ev.currentTarget.classList.add("drag-over");
+    }
+
+    function leaveDrop(ev) {
+      ev.currentTarget.classList.remove("drag-over");
+    }
+
+    function dropToFolder(ev, folderKey) {
+      ev.preventDefault();
+      ev.currentTarget.classList.remove("drag-over");
+      const id = ev.dataTransfer.getData("text/plain") || pickedChipId;
+      if (id) placeItemInFolder(id, folderKey);
+    }
+
+    function clickFolder(folderKey) {
+      if (pickedChipId) {
+        placeItemInFolder(pickedChipId, folderKey);
+      }
+    }
+
+    function placeItemInFolder(id, folderKey) {
+      const item = dragItemsList.find(x => x.id === id);
+      if (!item) return;
+      const fb = document.getElementById("m3bFeedback");
+
+      if (item.folder === folderKey) {
+        const el = document.getElementById(id);
+        if (el && el.parentElement.id === "dragPool") {
+          el.classList.remove("picked");
+          el.draggable = false;
+          el.onclick = null;
+          el.style.background = "var(--success-light)";
+          el.style.borderColor = "var(--success)";
+          el.style.color = "#065f46";
+          el.style.cursor = "default";
+          document.getElementById(`items-${folderKey}`).appendChild(el);
+          sortedCount++;
+          pickedChipId = null;
+          fb.style.color = "var(--success)";
+          fb.textContent = "Верно! Карточка на своём месте.";
+          if (sortedCount === dragItemsList.length) {
+            state.m3bDone = true;
+            fb.textContent = "Супер! Все 6 карточек разложены по правильным папкам!";
+            checkStep3Complete();
+          }
+        }
+      } else {
+        fb.style.color = "var(--danger)";
+        fb.textContent = "Ой, эта карточка из другой группы! Попробуй положить её во вторую папку.";
+      }
+    }
+
+    function resetDragGame() {
+      state.m3bDone = false;
+      document.getElementById("m3bFeedback").textContent = "";
+      initDragGame();
+    }
+
+    function checkStep3Complete() {
+      if (targetDone.every(Boolean)) {
+        state.m3aDone = true;
+        const fbA = document.getElementById("m3aFeedback");
+        fbA.style.color = "var(--success)";
+        fbA.textContent = "Отлично! Все звёзды нажаты, а сундучки открыты двойным щелчком!";
+      }
+      if (state.m3aDone && state.m3bDone) {
+        markStepDone(3);
+      }
+    }
+    initDragGame();
+
+    // --- ШАГ 4: ПРАКТИКА КЛАВИАТУРЫ ---
+    function checkFixWord() {
+      const val = document.getElementById("fixWordInput").value.trim().toUpperCase();
+      const fb = document.getElementById("m4aFeedback");
+      if (val === "КЛАВИАТУРА") {
+        state.m4aDone = true;
+        fb.style.color = "var(--success)";
+        fb.textContent = "Молодец! Слово исправлено без единой ошибки!";
+        if (state.m4aDone && state.m4bDone) markStepDone(4);
+      } else {
+        fb.style.color = "var(--danger)";
+        fb.textContent = "Пока в слове остались лишние буквы или не хватает нужной. Проверь: КЛАВИАТУРА.";
+      }
+    }
+
+    function checkTypePhrase() {
+      const raw = document.getElementById("typePhraseInput").value.trim();
+      const normalized = raw.replace(/\s+/g, " ");
+      const fb = document.getElementById("m4bFeedback");
+
+      if (normalized.toLowerCase() === "я умею печатать!") {
+        state.m4bDone = true;
+        fb.style.color = "var(--success)";
+        fb.textContent = "Превосходно! Фраза напечатана абсолютно правильно!";
+        if (state.m4aDone && state.m4bDone) markStepDone(4);
+      } else if (normalized.toLowerCase() === "я умею печатать") {
+        fb.style.color = "#b45309";
+        fb.textContent = "Почти готово! Добавь в самом конце восклицательный знак (!).";
+      } else {
+        fb.style.color = "var(--danger)";
+        fb.textContent = "Проверь пробелы между словами и буквы. Нужно напечатать: Я умею печатать!";
+      }
+    }
+
+    // --- ШАГ 5: ИТОГОВЫЙ ТЕСТ ---
+    const quizData = [
+      {
+        q: "1. К каким устройствам компьютера относятся клавиатура и мышь?",
+        options: [
+          "К устройствам ввода информации",
+          "К устройствам вывода информации",
+          "К устройствам хранения файлов"
+        ],
+        correct: 0
+      },
+      {
+        q: "2. Как называется стрелочка на экране, которая двигается вслед за компьютерной мышью?",
+        options: ["Пробел", "Указатель мыши", "Монитор"],
+        correct: 1
+      },
+      {
+        q: "3. Какой приём работы с мышью используют, чтобы открыть папку или программу?",
+        options: [
+          "Прокрутка колёсика",
+          "Двойной щелчок левой кнопкой мыши",
+          "Нажатие на провод мыши"
+        ],
+        correct: 1
+      },
+      {
+        q: "4. Какая клавиша на клавиатуре самая длинная и ставит отступ между словами?",
+        options: ["Enter", "Backspace", "Пробел"],
+        correct: 2
+      },
+      {
+        q: "5. Какую клавишу нужно нажать, чтобы стереть лишнюю букву слева от курсора?",
+        options: ["Backspace", "Пробел", "Стрелка вверх"],
+        correct: 0
+      },
+      {
+        q: "6. Для чего нужна клавиша Enter при работе с текстом?",
+        options: [
+          "Чтобы выключить компьютер",
+          "Чтобы перейти на новую строчку или подтвердить команду",
+          "Чтобы стереть весь текст"
+        ],
+        correct: 1
+      }
+    ];
+    const quizAnswers = {};
+
+    function renderQuiz() {
+      const box = document.getElementById("finalQuizContainer");
+      box.innerHTML = "";
+      quizData.forEach((item, qIdx) => {
+        const div = document.createElement("div");
+        div.className = "quiz-q";
+        div.innerHTML = `
+          <div><strong>${item.q}</strong></div>
+          <div id="quiz-opts-${qIdx}">
+            ${item.options.map((opt, oIdx) => `
+              <button class="quiz-opt" onclick="selectQuiz(${qIdx}, ${oIdx}, this)">${opt}</button>
+            `).join("")}
+          </div>
+        `;
+        box.appendChild(div);
+      });
+    }
+
+    function selectQuiz(qIdx, oIdx, btn) {
+      quizAnswers[qIdx] = oIdx;
+      const box = document.getElementById(`quiz-opts-${qIdx}`);
+      box.querySelectorAll(".quiz-opt").forEach(b => b.classList.remove("selected", "correct", "wrong"));
+      btn.classList.add("selected");
+    }
+
+    function finishLesson() {
+      if (Object.keys(quizAnswers).length < quizData.length) {
+        alert("Пожалуйста, ответь на все 6 вопросов теста!");
+        return;
+      }
+
+      let score = 0;
+      quizData.forEach((item, qIdx) => {
+        const chosen = quizAnswers[qIdx];
+        const box = document.getElementById(`quiz-opts-${qIdx}`);
+        box.querySelectorAll(".quiz-opt").forEach((b, oIdx) => {
+          b.classList.remove("selected", "correct", "wrong");
+          if (oIdx === item.correct) b.classList.add("correct");
+          else if (oIdx === chosen && chosen !== item.correct) b.classList.add("wrong");
+        });
+        if (chosen === item.correct) score++;
+      });
+
+      let grade = 2;
+      let label = "Попробуй ещё раз!";
+      if (score === 6) { grade = 5; label = "Отлично!"; }
+      else if (score >= 4) { grade = 4; label = "Хорошо!"; }
+      else if (score === 3) { grade = 3; label = "Удовлетворительно"; }
+
+      markStepDone(5);
+      const mins = Math.max(1, Math.round(state.secondsElapsed / 60));
+      const d = new Date();
+      const code = `INF2-PR2-${score}${grade}-${d.getDate()}${d.getMonth() + 1}`;
+
+      document.getElementById("certStudentName").textContent = state.studentName || "Ученик 2 класса";
+      document.getElementById("certGradeText").textContent = `Оценка: ${grade} (${label})`;
+      document.getElementById("certStats").textContent = `Правильных ответов: ${score} из ${quizData.length} • Время урока: ~${mins} мин.`;
+      document.getElementById("certCode").textContent = `Код проверки: ${code}`;
+      document.getElementById("certificateSection").style.display = "block";
+      document.getElementById("certificateSection").scrollIntoView({ behavior: "smooth" });
+    }
+
+    function resetAll() {
+      if (confirm("Начать урок заново и сбросить все ответы?")) {
+        location.reload();
+      }
+    }
+
+    renderQuiz();
+  </script>
+</body>
+</html>
